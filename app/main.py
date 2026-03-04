@@ -5,7 +5,21 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db, close_db
+
+# Import all routers
+from app.modules.auth.router import router as auth_router
 from app.modules.users.router import router as users_router
+from app.modules.properties.router import router as properties_router
+from app.modules.search.router import router as search_router
+from app.modules.packages.router import router as packages_router
+from app.modules.payments.router import router as payments_router
+from app.modules.favorites.router import router as favorites_router
+from app.modules.view_history.router import router as view_history_router
+from app.modules.appointments.router import router as appointments_router
+from app.modules.leads.router import router as leads_router
+from app.modules.chat.router import router as chat_router
+from app.modules.reports.router import router as reports_router
+from app.modules.notifications.router import router as notifications_router
 
 
 @asynccontextmanager
@@ -42,11 +56,21 @@ app.add_middleware(
 
 # ──── Routers ────
 
-app.include_router(
-    users_router,
-    prefix=settings.API_V1_PREFIX,
-    tags=["Users"],
-)
+prefix = settings.API_V1_PREFIX
+
+app.include_router(auth_router, prefix=prefix, tags=["Auth"])
+app.include_router(users_router, prefix=prefix, tags=["Users"])
+app.include_router(properties_router, prefix=prefix, tags=["Properties"])
+app.include_router(search_router, prefix=prefix, tags=["Search"])
+app.include_router(packages_router, prefix=prefix, tags=["Packages"])
+app.include_router(payments_router, prefix=prefix, tags=["Payments"])
+app.include_router(favorites_router, prefix=prefix, tags=["Favorites"])
+app.include_router(view_history_router, prefix=prefix, tags=["View History"])
+app.include_router(appointments_router, prefix=prefix, tags=["Appointments"])
+app.include_router(leads_router, prefix=prefix, tags=["Leads"])
+app.include_router(chat_router, prefix=prefix, tags=["Chat"])
+app.include_router(reports_router, prefix=prefix, tags=["Reports"])
+app.include_router(notifications_router, prefix=prefix, tags=["Notifications"])
 
 
 # ──── Health Check ────

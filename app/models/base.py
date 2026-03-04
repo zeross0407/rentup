@@ -17,5 +17,13 @@ class BaseDocument(Document):
         await self.save(**kwargs)
 
     class Settings:
-        # Use this as base; subclasses override collection name
         use_state_management = True
+
+
+class TimestampDocument(Document):
+    """Lightweight document with only created_at (for append-only logs)."""
+
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+    class Settings:
+        use_state_management = False

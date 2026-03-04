@@ -28,12 +28,32 @@ async def init_db():
 
     # Import all document models for Beanie initialization
     from app.modules.users.models import User
+    from app.modules.properties.models import Property
+    from app.modules.packages.models import Package
+    from app.modules.payments.models import Payment
+    from app.modules.favorites.models import Favorite
+    from app.modules.view_history.models import ViewHistory
+    from app.modules.appointments.models import Appointment
+    from app.modules.leads.models import Lead
+    from app.modules.chat.models import Conversation, Message
+    from app.modules.reports.models import Report
+    from app.modules.notifications.models import Notification
 
     await init_beanie(
         database=database,
         document_models=[
             User,
-            # Add new document models here
+            Property,
+            Package,
+            Payment,
+            Favorite,
+            ViewHistory,
+            Appointment,
+            Lead,
+            Conversation,
+            Message,
+            Report,
+            Notification,
         ],
     )
 
